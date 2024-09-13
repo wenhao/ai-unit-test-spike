@@ -5,7 +5,7 @@ ai-unit-test-spike
 
 **计算每月薪资**
 
-员工薪资结构：月薪资=基本工资+加班工资+工龄工资+销售提成
+员工薪资结构：月薪资=基本工资+加班工资+工龄工资+销售提成，最终工资取整发放。
 
 * 基本工资：
   * 文员助理：3000元
@@ -33,3 +33,139 @@ ai-unit-test-spike
 ### 测试场景
 
 把所有业务逻辑都写在service的一个方法里面，模拟很多业务分支的情况便于测试AI辅助单测的效果。
+
+### 目标
+
+* 借助AI如何更精准的生成单元测试
+  * 正确使用JUnit框架版本
+  * 生成的单测可自动放在对应的文件目录
+  * 生成的单测可编译 
+  * 生成的单测可执行成功
+  * 生成的单测测试方法论可读性高
+  * 正确地使用Mock框架
+  * 正确地使用断言
+  * 没有重复的测试
+  * 测试执行速度快
+  * 测试覆盖率高
+  * 重复生成结果差异小
+
+### Baidu Comate
+
+第一次Spike，直接选择SalaryService的calculate方法并使用Baidu Comate进行生成单测，自动发送的提示词为：“请为这段代码生成单元测试；使用JUnit5框架”，并附上了测试方法的源代码。自动识别了JUnit框架的版本，生成结果如下：
+
+```java
+package ai.unit.test.spike.service;
+
+import ai.unit.test.spike.request.SalaryRequest;
+import ai.unit.test.spike.response.SalaryResponse;
+import ai.unit.test.spike.domain.EmployeeTYpe;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+class SalaryServiceTest {
+
+  @Mock
+  private WorkService workService;
+
+  @InjectMocks
+  private SalaryService salaryService;
+
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
+
+  @Test
+  void testCalculate_FactoryWorker() {
+    SalaryRequest salaryRequest = new SalaryRequest();
+    salaryRequest.setBaseSalaryRate(2000);
+    salaryRequest.setWorkDays(22);
+    salaryRequest.setOverTimeHours(10);
+    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+
+    when(workService.get(1L)).thenReturn(salaryRequest);
+
+    SalaryResponse response = salaryService.calculate(1L);
+
+    assertEquals(15000, response.getBaseSalary());
+    assertEquals(1500, response.getOverTimeSalary());
+  }
+
+  @Test
+  void testCalculate_Sales() {
+    SalaryRequest salaryRequest = new SalaryRequest();
+    salaryRequest.setBaseSalaryRate(2000);
+    salaryRequest.setWorkDays(22);
+    salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
+    salaryRequest.setSalesRevenue(10000);
+
+    when(workService.get(1L)).thenReturn(salaryRequest);
+
+    SalaryResponse response = salaryService.calculate(1L);
+
+    assertEquals(1000000, response.getSalesCommissionSalary());
+  }
+
+  @Test
+  void testCalculate_AttendanceBonus() {
+    SalaryRequest salaryRequest = new SalaryRequest();
+    salaryRequest.setBaseSalaryRate(2000);
+    salaryRequest.setWorkDays(22);
+
+    when(workService.get(1L)).thenReturn(salaryRequest);
+
+    SalaryResponse response = salaryService.calculate(1L);
+
+    assertEquals(100, response.getAttendanceSalary());
+  }
+
+  @Test
+  void testCalculate_SeniorityBonus() {
+    SalaryRequest salaryRequest = new SalaryRequest();
+    salaryRequest.setBaseSalaryRate(2000);
+    salaryRequest.setWorkDays(22);
+    salaryRequest.setSeniority(10);
+
+    when(workService.get(1L)).thenReturn(salaryRequest);
+
+    SalaryResponse response = salaryService.calculate(1L);
+
+    assertEquals(200, response.getSenioritySalary());
+  }
+
+  @Test
+  void testCalculate_NoBonus() {
+    SalaryRequest salaryRequest = new SalaryRequest();
+    salaryRequest.setBaseSalaryRate(2000);
+    salaryRequest.setWorkDays(20);
+
+    when(workService.get(1L)).thenReturn(salaryRequest);
+
+    SalaryResponse response = salaryService.calculate(1L);
+
+    assertEquals(6666.67, response.getBaseSalary());
+    assertEquals(0, response.getOverTimeSalary());
+    assertEquals(0, response.getSenioritySalary());
+    assertEquals(0, response.getSalesCommissionSalary());
+    assertEquals(0, response.getAttendanceSalary());
+  }
+}
+```
+#### 评价：
+
+* [成功]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
+* [成功]生成单测可自动放在对应的文件目录: 点击采纳按钮后能自动放在对应的测试目录。
+* [成功]生成的单测可编译: 没有语法错误。
+* [失败]生成单测可执行: 生成的4个测试方法全部执行失败。
+* [失败]生成的单测测试方法论可读性高: 测试方法命名并不能反应测试意图。
+* [成功]正确地使用Mock框架。
+* [失败]正确地使用断言：没有完全验证方法的输出是否正确。
+* [成功]没有重复的测试：没有重复的测试。
+* [成功]测试执行速度快: 没有启动Spring服务。
+* [失败]测试覆盖率高: 测试失败无测试覆盖率。

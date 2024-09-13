@@ -6,7 +6,7 @@ public class SalaryResponse {
     private double senioritySalary;
     private double attendanceSalary;
     private double salesCommissionSalary;
-    private double totalSalary;
+    private int totalSalary;
 
     public double getBaseSalary() {
         return baseSalary;
@@ -48,7 +48,7 @@ public class SalaryResponse {
         this.attendanceSalary = attendanceSalary;
     }
 
-    public double getTotalSalary() {
-        return this.baseSalary + this.attendanceSalary + this.senioritySalary + this.overTimeSalary + this.salesCommissionSalary;
+    public int getTotalSalary() {
+        return (int) (this.baseSalary + this.attendanceSalary + this.senioritySalary + this.overTimeSalary + this.salesCommissionSalary);
     }
 }
