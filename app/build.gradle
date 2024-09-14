@@ -31,3 +31,6 @@ java {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+
+check.dependsOn jacocoTestReport
