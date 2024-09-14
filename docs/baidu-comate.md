@@ -1052,3 +1052,4 @@ void should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniori
 5. 多轮对话后上下文可能丢失，故每次生成单测前需要重新输入上下文。
 6. 增量生成单测时，需要明确告知AI删除多余的代码和注释。
 7. 一次仅生成一个单测方法，并告知AI不要在测试方法内重复mock依赖对象。
+8. 如果过程中的部分重复工作全部靠工具自动化，生成单测的效率将即高效又准确。
