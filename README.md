@@ -37,17 +37,18 @@ ai-unit-test-spike
 ### 目标
 
 * 借助AI如何更精准的生成单元测试
-  * 正确使用JUnit框架版本
-  * 生成的单测可自动放在对应的文件目录
-  * 生成的单测可编译 
-  * 生成的单测可执行成功
-  * 生成的单测测试方法论可读性高
-  * 正确地使用Mock框架
-  * 正确地使用断言
-  * 没有重复的测试
-  * 测试执行速度快
-  * 测试覆盖率高
-  * 重复生成结果差异小
+  * [严重]正确使用JUnit框架版本
+  * [次要]正确使用AssertJ框架
+  * [次要]生成的单测可自动放在对应的文件目录
+  * [严重]生成的单测可编译 
+  * [严重]生成的单测可执行成功
+  * [重要]生成的单测测试方法论可读性高
+  * [严重]正确地使用Mock框架
+  * [严重]正确地使用断言
+  * [次要]没有重复的测试
+  * [重要]测试执行速度快
+  * [重要]测试覆盖率高
+  * [次要]重复生成结果差异小
 
 ### Baidu Comate
 
@@ -56,9 +57,9 @@ ai-unit-test-spike
 ```java
 package ai.unit.test.spike.service;
 
+import ai.unit.test.spike.domain.EmployeeTYpe;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
-import ai.unit.test.spike.domain.EmployeeTYpe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -68,7 +69,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class SalaryServiceTest {
+public class SalaryServiceTest {
 
   @Mock
   private WorkService workService;
@@ -102,70 +103,65 @@ class SalaryServiceTest {
     SalaryRequest salaryRequest = new SalaryRequest();
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
+    salaryRequest.setOverTimeHours(10);
     salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
-    salaryRequest.setSalesRevenue(10000);
+    salaryRequest.setSalesRevenue(100000);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
 
     SalaryResponse response = salaryService.calculate(1L);
 
-    assertEquals(1000000, response.getSalesCommissionSalary());
+    assertEquals(15000, response.getBaseSalary());
+    assertEquals(10000, response.getSalesCommissionSalary());
   }
 
   @Test
-  void testCalculate_AttendanceBonus() {
+  void testCalculate_Attendance() {
     SalaryRequest salaryRequest = new SalaryRequest();
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
+    salaryRequest.setOverTimeHours(10);
+    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
 
     SalaryResponse response = salaryService.calculate(1L);
 
+    assertEquals(15000, response.getBaseSalary());
+    assertEquals(1500, response.getOverTimeSalary());
     assertEquals(100, response.getAttendanceSalary());
   }
 
   @Test
-  void testCalculate_SeniorityBonus() {
+  void testCalculate_Seniority() {
     SalaryRequest salaryRequest = new SalaryRequest();
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
-    salaryRequest.setSeniority(10);
+    salaryRequest.setOverTimeHours(10);
+    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+    salaryRequest.setSeniority(5);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
 
     SalaryResponse response = salaryService.calculate(1L);
 
-    assertEquals(200, response.getSenioritySalary());
-  }
-
-  @Test
-  void testCalculate_NoBonus() {
-    SalaryRequest salaryRequest = new SalaryRequest();
-    salaryRequest.setBaseSalaryRate(2000);
-    salaryRequest.setWorkDays(20);
-
-    when(workService.get(1L)).thenReturn(salaryRequest);
-
-    SalaryResponse response = salaryService.calculate(1L);
-
-    assertEquals(6666.67, response.getBaseSalary());
-    assertEquals(0, response.getOverTimeSalary());
-    assertEquals(0, response.getSenioritySalary());
-    assertEquals(0, response.getSalesCommissionSalary());
-    assertEquals(0, response.getAttendanceSalary());
+    assertEquals(15000, response.getBaseSalary());
+    assertEquals(1500, response.getOverTimeSalary());
+    assertEquals(20, response.getSenioritySalary());
   }
 }
 ```
 #### 评价：
 
-* [成功]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
-* [成功]生成单测可自动放在对应的文件目录: 点击采纳按钮后能自动放在对应的测试目录。
-* [成功]生成的单测可编译: 没有语法错误。
-* [失败]生成单测可执行: 生成的4个测试方法全部执行失败。
-* [失败]生成的单测测试方法论可读性高: 测试方法命名并不能反应测试意图。
-* [成功]正确地使用Mock框架。
-* [失败]正确地使用断言：没有完全验证方法的输出是否正确。
-* [成功]没有重复的测试：没有重复的测试。
-* [成功]测试执行速度快: 没有启动Spring服务。
-* [失败]测试覆盖率高: 测试失败无测试覆盖率。
+* [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
+* [失败][次要]正确使用AssertJ框架：未识别到AssertJ框架。
+* [成功][次要]生成单测可自动放在对应的文件目录: 点击采纳按钮后能自动放在对应的测试目录。
+* [成功][严重]生成的单测可编译: 没有语法错误。
+* [失败][严重]生成单测可执行: 生成的4个测试方法全部执行失败。
+* [失败][重要]生成的单测测试方法论可读性高: 测试方法命名并不能反应测试意图。
+* [成功][严重]正确地使用Mock框架。
+* [失败][严重]正确地使用断言：没有完全验证方法的输出是否正确。
+* [成功][次要]没有重复的测试：没有重复的测试。
+* [成功][重要]测试执行速度快: 没有启动Spring服务。
+* [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
+

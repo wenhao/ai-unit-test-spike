@@ -1,54 +1,54 @@
 package ai.unit.test.spike.response;
 
 public class SalaryResponse {
-    private double baseSalary;
-    private double overTimeSalary;
-    private double senioritySalary;
-    private double attendanceSalary;
-    private double salesCommissionSalary;
+    private int baseSalary;
+    private int overTimeSalary;
+    private int senioritySalary;
+    private int attendanceSalary;
+    private int salesCommissionSalary;
     private int totalSalary;
 
-    public double getBaseSalary() {
+    public int getBaseSalary() {
         return baseSalary;
     }
 
-    public void setBaseSalary(final double baseSalary) {
+    public void setBaseSalary(final int baseSalary) {
         this.baseSalary = baseSalary;
     }
 
-    public double getOverTimeSalary() {
+    public int getOverTimeSalary() {
         return overTimeSalary;
     }
 
-    public void setOverTimeSalary(final double overTimeSalary) {
+    public void setOverTimeSalary(final int overTimeSalary) {
         this.overTimeSalary = overTimeSalary;
     }
 
-    public double getSenioritySalary() {
+    public int getSenioritySalary() {
         return senioritySalary;
     }
 
-    public void setSenioritySalary(final double senioritySalary) {
+    public void setSenioritySalary(final int senioritySalary) {
         this.senioritySalary = senioritySalary;
     }
 
-    public double getSalesCommissionSalary() {
+    public int getSalesCommissionSalary() {
         return salesCommissionSalary;
     }
 
-    public void setSalesCommissionSalary(final double salesCommissionSalary) {
+    public void setSalesCommissionSalary(final int salesCommissionSalary) {
         this.salesCommissionSalary = salesCommissionSalary;
     }
 
-    public double getAttendanceSalary() {
+    public int getAttendanceSalary() {
         return attendanceSalary;
     }
 
-    public void setAttendanceSalary(final double attendanceSalary) {
+    public void setAttendanceSalary(final int attendanceSalary) {
         this.attendanceSalary = attendanceSalary;
     }
 
     public int getTotalSalary() {
-        return (int) (this.baseSalary + this.attendanceSalary + this.senioritySalary + this.overTimeSalary + this.salesCommissionSalary);
+        return this.baseSalary + this.attendanceSalary + this.senioritySalary + this.overTimeSalary + this.salesCommissionSalary;
     }
 }

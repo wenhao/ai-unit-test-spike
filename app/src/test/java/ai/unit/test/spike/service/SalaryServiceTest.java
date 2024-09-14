@@ -1,23 +1,24 @@
 package ai.unit.test.spike.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 import ai.unit.test.spike.domain.EmployeeTYpe;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 public class SalaryServiceTest {
 
-    @Mock private WorkService workService;
+    @Mock
+    private WorkService workService;
 
-    @InjectMocks private SalaryService salaryService;
+    @InjectMocks
+    private SalaryService salaryService;
 
     @BeforeEach
     void setUp() {
@@ -45,57 +46,50 @@ public class SalaryServiceTest {
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(2000);
         salaryRequest.setWorkDays(22);
+        salaryRequest.setOverTimeHours(10);
         salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
-        salaryRequest.setSalesRevenue(10000);
+        salaryRequest.setSalesRevenue(100000);
 
         when(workService.get(1L)).thenReturn(salaryRequest);
 
         SalaryResponse response = salaryService.calculate(1L);
 
-        assertEquals(1000000, response.getSalesCommissionSalary());
+        assertEquals(15000, response.getBaseSalary());
+        assertEquals(10000, response.getSalesCommissionSalary());
     }
 
     @Test
-    void testCalculate_AttendanceBonus() {
+    void testCalculate_Attendance() {
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(2000);
         salaryRequest.setWorkDays(22);
+        salaryRequest.setOverTimeHours(10);
+        salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
 
         when(workService.get(1L)).thenReturn(salaryRequest);
 
         SalaryResponse response = salaryService.calculate(1L);
 
+        assertEquals(15000, response.getBaseSalary());
+        assertEquals(1500, response.getOverTimeSalary());
         assertEquals(100, response.getAttendanceSalary());
     }
 
     @Test
-    void testCalculate_SeniorityBonus() {
+    void testCalculate_Seniority() {
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(2000);
         salaryRequest.setWorkDays(22);
-        salaryRequest.setSeniority(10);
+        salaryRequest.setOverTimeHours(10);
+        salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+        salaryRequest.setSeniority(5);
 
         when(workService.get(1L)).thenReturn(salaryRequest);
 
         SalaryResponse response = salaryService.calculate(1L);
 
-        assertEquals(200, response.getSenioritySalary());
-    }
-
-    @Test
-    void testCalculate_NoBonus() {
-        SalaryRequest salaryRequest = new SalaryRequest();
-        salaryRequest.setBaseSalaryRate(2000);
-        salaryRequest.setWorkDays(20);
-
-        when(workService.get(1L)).thenReturn(salaryRequest);
-
-        SalaryResponse response = salaryService.calculate(1L);
-
-        assertEquals(6666.67, response.getBaseSalary());
-        assertEquals(0, response.getOverTimeSalary());
-        assertEquals(0, response.getSenioritySalary());
-        assertEquals(0, response.getSalesCommissionSalary());
-        assertEquals(0, response.getAttendanceSalary());
+        assertEquals(15000, response.getBaseSalary());
+        assertEquals(1500, response.getOverTimeSalary());
+        assertEquals(20, response.getSenioritySalary());
     }
 }

@@ -20,17 +20,17 @@ public class SalaryService {
     public SalaryResponse calculate(Long userId) {
         SalaryRequest salaryRequest = workService.get(userId);
         SalaryResponse salaryResponse = new SalaryResponse();
-        salaryResponse.setBaseSalary(salaryRequest.getBaseSalaryRate() / 30 * salaryRequest.getWorkDays());
+        salaryResponse.setBaseSalary(Double.valueOf(salaryRequest.getBaseSalaryRate() / 30 * salaryRequest.getWorkDays()).intValue());
         if (salaryRequest.getEmployeeTYpe().equals(FACTORY_WORKER)) {
             double preHourSalary = salaryRequest.getBaseSalaryRate() / 30 / 8 * 1.5;
-            salaryResponse.setOverTimeSalary(preHourSalary * salaryRequest.getOverTimeHours());
+            salaryResponse.setOverTimeSalary(Double.valueOf((preHourSalary * salaryRequest.getOverTimeHours())).intValue());
         }
         salaryResponse.setSenioritySalary(Math.min(salaryRequest.getSeniority() - 1, 10) * 3 + 10);
         if (salaryRequest.getWorkDays() == 22) {
             salaryResponse.setAttendanceSalary(100);
         }
         if (salaryRequest.getEmployeeTYpe().equals(SALES)) {
-            salaryResponse.setSalesCommissionSalary(Math.round(salaryRequest.getSalesRevenue() / 10) * 1000);
+            salaryResponse.setSalesCommissionSalary(Double.valueOf((Math.round(salaryRequest.getSalesRevenue() / 10) * 1000)).intValue());
         }
         return salaryResponse;
     }
