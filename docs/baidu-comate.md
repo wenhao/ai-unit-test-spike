@@ -862,7 +862,7 @@ void should_calculate_salary_for_factory_worker_with_partial_base_salary_and_ove
 3、该测试方法使用以下测试数据，userId为805，Mock对象salaryRequest中的数据分别是，baseSalaryRate为5280，workDays为22，overTimeHours为0，employeeTYpe为QUALITY_CONTROL，seniority为5，salesRevenue为0。 
 4、断言结果：baseSalary为5280，overTimeSalary为0，senioritySalary为22，attendanceSalary为100，salesCommissionSalary为0。
 5、生成后删除除测试方法以外所有的内容，删除import、类成员、setUp部分。
-6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService，请在测试方法中不要重复mock该workService。
+6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService和salaryService，请在测试方法中不要重复mock该workService和salaryService。
 ```
 
 生成的结果如下：
@@ -884,8 +884,6 @@ void should_calculate_salary_for_quality_control_with_base_salary_and_seniority_
     // Assuming the SalaryServiceTest class already has a mock for workService
     when(workService.get(userId)).thenReturn(salaryRequest);
 
-    SalaryService salaryService = new SalaryService(workService); // Assuming SalaryService takes workService as a dependency
-
     // Act
     SalaryResponse salaryResponse = salaryService.calculate(userId);
 
@@ -906,7 +904,7 @@ void should_calculate_salary_for_quality_control_with_base_salary_and_seniority_
 3、该测试方法使用以下测试数据，userId为806，Mock对象salaryRequest中的数据分别是，baseSalaryRate为6160，workDays为22，overTimeHours为0，employeeTYpe为SALES，seniority为1，salesRevenue为7。 
 4、断言结果：baseSalary为6160，overTimeSalary为0，senioritySalary为10，attendanceSalary为100，salesCommissionSalary为1000。
 5、生成后删除除测试方法以外所有的内容，删除import、类成员、setUp部分。
-6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService，请在测试方法中不要重复mock该workService。
+6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService和salaryService，请在测试方法中不要重复mock该workService和salaryService。
 ```
 
 生成结果如下：
@@ -932,7 +930,6 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
     when(workService.get(userId)).thenReturn(salaryRequest);
 
     // Act
-    SalaryService salaryService = new SalaryService(workService); // 假设SalaryService接受workService作为构造函数参数
     SalaryResponse salaryResponse = salaryService.calculate(userId);
 
     // Assert
@@ -952,7 +949,7 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
 3、该测试方法使用以下测试数据，userId为807，Mock对象salaryRequest中的数据分别是，baseSalaryRate为6160，workDays为22，overTimeHours为0，employeeTYpe为SALES，seniority为7，salesRevenue为38。 
 4、断言结果：baseSalary为6160，overTimeSalary为0，senioritySalary为28，attendanceSalary为100，salesCommissionSalary为4000。
 5、生成后删除除测试方法以外所有的内容，删除import、类成员、setUp部分。
-6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService，请在测试方法中不要重复mock该workService。
+6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService和salaryService，请在测试方法中不要重复mock该workService和salaryService。
 ```
 
 生成结果如下：
@@ -973,8 +970,6 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
 
         // Assuming the SalaryServiceTest class already has a mock for workService
         when(workService.get(userId)).thenReturn(salaryRequest);
-
-        SalaryService salaryService = new SalaryService(workService); // Assuming SalaryService takes workService as a dependency
 
         // Act
         SalaryResponse salaryResponse = salaryService.calculate(userId);
@@ -999,7 +994,7 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
 3、该测试方法使用以下测试数据，userId为808，Mock对象salaryRequest中的数据分别是，baseSalaryRate为6160，workDays为21，overTimeHours为0，employeeTYpe为SALES，seniority为12，salesRevenue为54。 
 4、断言结果：baseSalary为5880，overTimeSalary为0，senioritySalary为30，attendanceSalary为0，salesCommissionSalary为5000。
 5、生成后删除除测试方法以外所有的内容，删除import、类成员、setUp部分。
-6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService，请在测试方法中不要重复mock该workService。
+6、在已经生成的SalaryServiceTest类中已经在类成员中mock了workService和salaryService，请在测试方法中不要重复mock该workService和salaryService。
 ```
 
 生成结果如下：
@@ -1020,8 +1015,6 @@ void should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniori
 
     // 假设workService已经在SalaryServiceTest类中mock，这里不再重复mock
     when(workService.get(userId)).thenReturn(salaryRequest);
-
-    SalaryService salaryService = new SalaryService(workService); // 假设SalaryService接受workService作为依赖
 
     // Act
     SalaryResponse salaryResponse = salaryService.calculate(userId);

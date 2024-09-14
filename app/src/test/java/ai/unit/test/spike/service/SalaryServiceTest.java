@@ -105,9 +105,6 @@ public class SalaryServiceTest {
         // Mock workService.get method
         when(workService.get(userId)).thenReturn(salaryRequest);
 
-        // Inject the mock into the SalaryService
-        SalaryService salaryService = new SalaryService(workService); // Assuming SalaryService has a constructor that accepts WorkService
-
         // Act
         SalaryResponse salaryResponse = salaryService.calculate(userId);
 
@@ -122,7 +119,7 @@ public class SalaryServiceTest {
     }
 
     @Test
-// 测试意图：车间薪资=部分考勤工资+加班工资+工龄工资
+        // 测试意图：车间薪资=部分考勤工资+加班工资+工龄工资
     void should_calculate_salary_for_factory_worker_with_partial_base_salary_and_overtime_salary_and_seniority_salary_and_without_attendance_salary() {
         // Arrange
         Long userId = 801L;
@@ -136,9 +133,6 @@ public class SalaryServiceTest {
 
         // Mocking the WorkService to return the specific SalaryRequest
         when(workService.get(userId)).thenReturn(salaryRequest);
-
-        // Injecting the mocked WorkService into SalaryService
-        SalaryService salaryService = new SalaryService(workService);
 
         // Act
         SalaryResponse salaryResponse = salaryService.calculate(userId);
@@ -166,8 +160,6 @@ public class SalaryServiceTest {
 
         // Assuming the SalaryServiceTest class already has a mock for workService
         when(workService.get(userId)).thenReturn(salaryRequest);
-
-        SalaryService salaryService = new SalaryService(workService); // Assuming SalaryService takes workService as a dependency
 
         // Act
         SalaryResponse salaryResponse = salaryService.calculate(userId);
@@ -199,7 +191,6 @@ public class SalaryServiceTest {
         when(workService.get(userId)).thenReturn(salaryRequest);
 
         // Act
-        SalaryService salaryService = new SalaryService(workService); // 假设SalaryService接受workService作为构造函数参数
         SalaryResponse salaryResponse = salaryService.calculate(userId);
 
         // Assert
@@ -226,8 +217,6 @@ public class SalaryServiceTest {
         // Assuming the SalaryServiceTest class already has a mock for workService
         when(workService.get(userId)).thenReturn(salaryRequest);
 
-        SalaryService salaryService = new SalaryService(workService); // Assuming SalaryService takes workService as a dependency
-
         // Act
         SalaryResponse salaryResponse = salaryService.calculate(userId);
 
@@ -243,7 +232,7 @@ public class SalaryServiceTest {
     }
 
     @Test
-   // 测试意图：销售人员薪资=部分考勤工资+工龄工资+提成
+        // 测试意图：销售人员薪资=部分考勤工资+工龄工资+提成
     void should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniority_salary_and_without_attendance_salary_and_sales_commission_salary() {
         // Arrange
         Long userId = 808L;
@@ -257,8 +246,6 @@ public class SalaryServiceTest {
 
         // 假设workService已经在SalaryServiceTest类中mock，这里不再重复mock
         when(workService.get(userId)).thenReturn(salaryRequest);
-
-        SalaryService salaryService = new SalaryService(workService); // 假设SalaryService接受workService作为依赖
 
         // Act
         SalaryResponse salaryResponse = salaryService.calculate(userId);
