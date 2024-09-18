@@ -3,7 +3,7 @@ package ai.unit.test.spike.request;
 import ai.unit.test.spike.domain.EmployeeType;
 
 public class SalaryRequest {
-    private EmployeeType employeeTYpe;
+    private EmployeeType employeeType;
     private double baseSalaryRate;
     private int overTimeHours;
     private int seniority;
@@ -19,12 +19,12 @@ public class SalaryRequest {
         this.baseSalaryRate = baseSalaryRate;
     }
 
-    public EmployeeType getEmployeeTYpe() {
-        return employeeTYpe;
+    public EmployeeType getEmployeeType() {
+        return employeeType;
     }
 
-    public void setEmployeeTYpe(final EmployeeType employeeTYpe) {
-        this.employeeTYpe = employeeTYpe;
+    public void setEmployeeType(final EmployeeType employeeType) {
+        this.employeeType = employeeType;
     }
 
     public int getOverTimeHours() {

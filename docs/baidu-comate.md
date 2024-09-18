@@ -1,6 +1,7 @@
 ### Baidu Comate
 
-第一次Spike，直接选择SalaryService的calculate方法并使用Baidu Comate进行生成单测，自动发送的提示词为：“请为这段代码生成单元测试；使用JUnit5框架”，并附上了测试方法的源代码。自动识别了JUnit框架的版本，生成结果如下：
+### 第一次Spike
+直接选择SalaryService的calculate方法并使用Baidu Comate进行生成单测，自动发送的提示词为：“请为这段代码生成单元测试；使用JUnit5框架”，并附上了测试方法的源代码。自动识别了JUnit框架的版本，生成结果如下：
 
 ```java
 package ai.unit.test.spike.service;
@@ -100,7 +101,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -115,7 +116,8 @@ public class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第二次Spike，尝试使用JUnit5和AssertJ生成单测，放弃一键生成单测的功能直接手动输入提示词：“请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架”，生成结果如下：
+### 第二次Spike
+尝试使用JUnit5和AssertJ生成单测，放弃一键生成单测的功能直接手动输入提示词：“请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架”，生成结果如下：
 
 ```java
 package ai.unit.test.spike.service;
@@ -214,7 +216,7 @@ public class SalaryServiceTest {
     assertEquals(0, response
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -229,7 +231,8 @@ public class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第三次Spike，尝试修复AssertJ问题，修改提示词为：“请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法”，生成结果如下：
+### 第三次Spike
+尝试修复AssertJ问题，修改提示词为：“请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法”，生成结果如下：
 
 ```java
 package ai.unit.test.spike.service;
@@ -320,7 +323,7 @@ public class SalaryServiceTest {
         salaryRequest.setEmployeeType
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -335,12 +338,13 @@ public class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第四次Spike，尝试修复单测无法编译的问题，代码内容过长被截断，只能想办法缩短生成的代码长度，可行的办法是手动提供测试的案例让AI一次只生成一个测试，那就需要更多的提示词：
+### 第四次Spike
+尝试修复单测无法编译的问题，代码内容过长被截断，只能想办法缩短生成的代码长度，可行的办法是手动提供测试的案例让AI一次只生成一个测试，那就需要更多的提示词：
 
-```txt
+```markdown
 请按以下要求生成单元测试：
-1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
-2、请使用一下测试数据生成一个测试方法，userId为801，salaryRequest中的数据分别是，baseSalaryRate为4400，workDays为22，overTimeHours为0，employeeTYpe为OFFICE_ASSISTANT，seniority为3，salesRevenue为0。 
+1. 请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
+2. 请使用一下测试数据生成一个测试方法，userId为801，salaryRequest中的数据分别是，baseSalaryRate为4400，workDays为22，overTimeHours为0，employeeTYpe为OFFICE_ASSISTANT，seniority为3，salesRevenue为0。 
 ```
 
 生成结果如下：
@@ -403,7 +407,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -418,7 +422,8 @@ public class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第五次Spike，尝试修复生成的单测不可执行成功的问题，思路是提前告之AI断言结果，提示词如下：
+### 第五次Spike
+尝试修复生成的单测不可执行成功的问题，思路是提前告之AI断言结果，提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -486,7 +491,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -501,7 +506,8 @@ public class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第六次Spike，尝试提高生成单测的方法的可读性，一种是测试的方法名能揭示测试意图，另外一种方式是在方法名上加注释说明测试意图，我们两种都要，因为复杂度类似，提示词如下：
+### 第六次Spike
+尝试提高生成单测的方法的可读性，一种是测试的方法名能揭示测试意图，另外一种方式是在方法名上加注释说明测试意图，我们两种都要，因为复杂度类似，提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -574,7 +580,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -598,7 +604,8 @@ public class SalaryServiceTest {
 
 以上问题的解决对AI生成单测有很重要的指导意义，但后续还需要结合场景比如增量单测如何处理，修改了业务代码的单测如何跟着更改等等。
 
-第七次Spike，多次重复第六次Spike的过程，把该方法的测试已覆盖率提高到100%。提示词如下：
+### 第七次Spike
+多次重复第六次Spike的过程，把该方法的测试已覆盖率提高到100%。提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -672,7 +679,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 生成的代码重复的包含了import和类头部分，如果仅生成测试方法就更好了，下次尝试修复这个问题。
 
@@ -689,7 +696,8 @@ public class SalaryServiceTest {
 * [成功][重要]测试覆盖率高: 以此下去，测试覆盖率能够达到100%。
 ```
 
-第八次Spike，尝试去除import和类头部分的代码，仅生成测试方法。提示词如下：
+### 第八次Spike
+尝试去除import和类头部分的代码，仅生成测试方法。提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -739,7 +747,7 @@ void should_calculate_salary_for_office_assistant_with_partial_base_salary_and_f
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -755,7 +763,8 @@ void should_calculate_salary_for_office_assistant_with_partial_base_salary_and_f
 * [成功][严重]能增量生成单元测试：完美！
 ```
 
-第九次Spike，补全所有测试案例，达成测试覆盖率100%，提示词如下：
+### 第九次Spike
+补全所有测试案例，达成测试覆盖率100%，提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -815,7 +824,7 @@ void should_calculate_salary_for_factory_worker_with_base_salary_and_overtime_sa
 5、生成后删除除测试方法以外所有的内容，删除import、类成员、setUp部分。
 ```
 
-#### 评价：
+### 评价：
 
 多轮对话后，AI生成有点胡言乱语了，并发现Baidu Comate也会把SalaryServiceTest类也也作为了上下文输入，这造成了一定的小混乱，没有必要。重启Baidu Comate清空下上下文再试。
 
@@ -1032,7 +1041,7 @@ void should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniori
 }
 ```
 
-#### 评价：
+### 评价：
 
 最终测试覆盖率达到了100%，过程非常的流畅，提示词可高度标准化和复用，生成的单测可读、可成功执行，堪比人工所写，完美！
 

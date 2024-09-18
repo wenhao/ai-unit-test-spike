@@ -21,7 +21,7 @@ public class SalaryService {
         SalaryRequest salaryRequest = workService.get(userId);
         SalaryResponse salaryResponse = new SalaryResponse();
         salaryResponse.setBaseSalary(Double.valueOf(salaryRequest.getBaseSalaryRate() / 22 * salaryRequest.getWorkDays()).intValue());
-        if (salaryRequest.getEmployeeTYpe().equals(FACTORY_WORKER)) {
+        if (salaryRequest.getEmployeeType().equals(FACTORY_WORKER)) {
             double preHourSalary = salaryRequest.getBaseSalaryRate() / 22 / 8 * 1.5;
             salaryResponse.setOverTimeSalary(Double.valueOf((preHourSalary * salaryRequest.getOverTimeHours())).intValue());
         }
@@ -29,7 +29,7 @@ public class SalaryService {
         if (salaryRequest.getWorkDays() == 22) {
             salaryResponse.setAttendanceSalary(100);
         }
-        if (salaryRequest.getEmployeeTYpe().equals(SALES)) {
+        if (salaryRequest.getEmployeeType().equals(SALES)) {
             salaryResponse.setSalesCommissionSalary(Double.valueOf((Math.round(salaryRequest.getSalesRevenue() / 10) * 1000)).intValue());
         }
         return salaryResponse;

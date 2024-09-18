@@ -1,6 +1,7 @@
 ### Tencent AI Coding Assistant
 
-第一次Spike，直接选择SalaryService的calculate方法并右键使用腾讯云AI代码助手进行生成单测，为了防止干扰删除以前用百度Comate生成的SalaryServiceTest类。
+### 第一次Spike
+直接选择SalaryService的calculate方法并右键使用腾讯云AI代码助手进行生成单测，为了防止干扰删除以前用百度Comate生成的SalaryServiceTest类。
 
 生成如下：
 
@@ -77,7 +78,7 @@ class SalaryServiceTest {
 
 ```
 
-#### 评价：
+### 评价：
 
 生成单测的用户旅程和体验不如百度Comate。
 
@@ -94,7 +95,8 @@ class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第二次Spike，尝试使用JUnit5和AssertJ生成单测，放弃一键生成单测的功能直接手动输入提示词：“请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法”，生成结果如下：
+### 第二次Spike
+尝试使用JUnit5和AssertJ生成单测，放弃一键生成单测的功能直接手动输入提示词：“请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法”，生成结果如下：
 
 ```java
 import ai.unit.test.spike.domain.EmployeeType;
@@ -177,7 +179,7 @@ class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -192,7 +194,8 @@ class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第三次Spike，尝试修复Mock问题，修改提示词为：“请使用Mockito框架的@Mock和@InjectMocks并使用MockitoAnnotations.initMocks(this)初始化。”，生成结果如下：
+### 第三次Spike
+尝试修复Mock问题，修改提示词为：“请使用Mockito框架的@Mock和@InjectMocks并使用MockitoAnnotations.initMocks(this)初始化。”，生成结果如下：
 
 ```java
 package ai.unit.test.spike.service;
@@ -286,7 +289,7 @@ class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本：自动识别了JUnit5框架的版本。
@@ -301,7 +304,8 @@ class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 测试失败无测试覆盖率。
 ```
 
-第四次Spike，再次尝试修复单测执行不成功的的问题，根据使用百度Comate的经验，每次仅生成一个单测方法并提供方法名、测试数据和断言输出，那就需要更多的提示词：
+### 第四次Spike
+再次尝试修复单测执行不成功的的问题，根据使用百度Comate的经验，每次仅生成一个单测方法并提供方法名、测试数据和断言输出，那就需要更多的提示词：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -370,7 +374,7 @@ class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -385,7 +389,8 @@ class SalaryServiceTest {
 * [失败][重要]测试覆盖率高: 不能一次性达成100%的测试覆盖率，即便是把所有测试案例提前输入进去大概率也会遇到内容截断的问题。
 ```
 
-第五次Spike，再次尝试修复无法编译的问题，明确告知AI必须导入依赖的包，提示词如下：
+### 第五次Spike
+再次尝试修复无法编译的问题，明确告知AI必须导入依赖的包，提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -460,7 +465,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -482,7 +487,8 @@ public class SalaryServiceTest {
 2. 跟百度Comate不同的是，腾讯AI犯的低级错误更多一点包括：少导包、诡异的变量、没有package、无法识别框架依赖、如果对话过程中选中了其他代码就变成了给这段代码的对话等。
 ```
 
-第六次Spike，多次重复第五次Spike的过程，并尝试每次仅生成测试方法，把该方法的测试已覆盖率提高到100%。提示词如下：
+### 第六次Spike
+多次重复第五次Spike的过程，并尝试每次仅生成测试方法，把该方法的测试已覆盖率提高到100%。提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -552,7 +558,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 生成的代码还是包含了import和setUp了，并且代码再次无法编译了，尝试了多次腾讯AI都无法达到预期的结果，放弃仅生成单个测试方法的思路。也发现腾讯AI会把已生成的SalaryServiceTest作为上下文，导致错误相互影响变得胡言乱语。
 
@@ -569,7 +575,8 @@ public class SalaryServiceTest {
 * [成功][重要]测试覆盖率高: 手动达成测试覆盖100%。
 ```
 
-第七次Spike，多次重复第五次Spike的过程，不要求仅生成测试方法。提示词如下：
+### 第七次Spike
+多次重复第五次Spike的过程，不要求仅生成测试方法。提示词如下：
 
 ```markdown
 请按以下要求生成单元测试：
@@ -637,7 +644,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 ```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
@@ -786,7 +793,7 @@ public class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 还是无法正确的导包，放弃。
 
@@ -1054,7 +1061,7 @@ class SalaryServiceTest {
 }
 ```
 
-#### 评价：
+### 评价：
 
 最终测试覆盖率达到了100%，过程并不像百度Comate那样的的流畅，生成的代码几乎都需要人工参与修复，如果能在优化下对测试上下文的理解及生成测试的用户旅程，应该会更好。
 

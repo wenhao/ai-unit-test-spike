@@ -30,7 +30,7 @@ public class WorkService {
     private SalaryRequest getSalaryRequest(EmployeeType employeeTYpe, int baseSalaryRate, int overTimeHours, int seniority,
                                            int workDays, int salesRevenue) {
         SalaryRequest salaryRequest = new SalaryRequest();
-        salaryRequest.setEmployeeTYpe(employeeTYpe);
+        salaryRequest.setEmployeeType(employeeTYpe);
         salaryRequest.setBaseSalaryRate(baseSalaryRate);
         salaryRequest.setOverTimeHours(overTimeHours);
         salaryRequest.setSeniority(seniority);

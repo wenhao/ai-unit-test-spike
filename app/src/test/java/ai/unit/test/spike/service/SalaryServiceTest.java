@@ -1,20 +1,18 @@
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeType;
-import ai.unit.test.spike.request.SalaryRequest;
-import ai.unit.test.spike.response.SalaryResponse;
-import ai.unit.test.spike.service.SalaryService;
-import ai.unit.test.spike.service.WorkService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-public class SalaryServiceTest {
+import ai.unit.test.spike.domain.EmployeeType;
+import ai.unit.test.spike.request.SalaryRequest;
+import ai.unit.test.spike.response.SalaryResponse;
+
+class SalaryServiceTest {
 
     @Mock
     private WorkService workService;
@@ -23,7 +21,7 @@ public class SalaryServiceTest {
     private SalaryService salaryService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -31,22 +29,21 @@ public class SalaryServiceTest {
      * 测试意图：文员助理仅含基本考勤工资+工龄工资+全勤奖。
      */
     @Test
-    public void should_calculate_salary_for_office_assistant_with_base_salary_and_seniority_salary_and_attendance_salary() {
+    void should_calculate_salary_for_office_assistant_with_base_salary_and_seniority_salary_and_attendance_salary() {
         // 测试数据
-        Long userId = 801L;
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(4400);
-        salaryRequest.setWorkDays(22);
+        salaryRequest.setEmployeeType(EmployeeType.OFFICE_ASSISTANT);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeType.OFFICE_ASSISTANT);
         salaryRequest.setSeniority(3);
         salaryRequest.setSalesRevenue(0);
+        salaryRequest.setWorkDays(22);
 
-        // 模拟workService.get方法返回salaryRequest
-        when(workService.get(userId)).thenReturn(salaryRequest);
+        // 模拟行为
+        when(workService.get(801L)).thenReturn(salaryRequest);
 
-        // 调用calculate方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(801L);
 
         // 断言结果
         assertThat(salaryResponse.getBaseSalary()).isEqualTo(4400);
@@ -57,83 +54,85 @@ public class SalaryServiceTest {
     }
 
     /**
-     * 测试意图：文员助理仅含基本考勤工资+工龄工资+全勤奖。
+     * 测试意图：车间薪资=基本考勤工资+加班工资+工龄工资+全勤奖。
      */
     @Test
-    public void should_calculate_salary_for_office_assistant_with_partial_base_salary_and_full_seniority_salary_and_without_attendance_salary() {
-        // 准备测试数据
-        Long userId = 802L;
+    void should_calculate_salary_for_factory_worker_with_base_salary_and_overtime_salary_and_seniority_salary_and_attendance_salary() {
+        // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
-        salaryRequest.setBaseSalaryRate(4400);
-        salaryRequest.setWorkDays(20);
-        salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeType.OFFICE_ASSISTANT);
-        salaryRequest.setSeniority(11);
+        salaryRequest.setBaseSalaryRate(3520);
+        salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
+        salaryRequest.setOverTimeHours(13);
+        salaryRequest.setSeniority(1);
         salaryRequest.setSalesRevenue(0);
+        salaryRequest.setWorkDays(22);
 
-        when(workService.get(userId)).thenReturn(salaryRequest);
+        // 模拟行为
+        when(workService.get(803L)).thenReturn(salaryRequest);
 
-        // 调用被测试方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(803L);
 
         // 断言结果
-        assertThat(salaryResponse.getBaseSalary()).isEqualTo(4000);
-        assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(0);
-        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(30);
+        assertThat(salaryResponse.getBaseSalary()).isEqualTo(3520); // 3520 / 22 * 22
+        assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(390); // (3520 / 22 / 8 * 1.5) * 13
+        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(10); // (1 - 1) * 3 + 10
+        assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(100);
+        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(0);
+    }
+
+    /**
+     * 测试意图：车间薪资=部分考勤工资+加班工资+工龄工资。
+     */
+    @Test
+    void should_calculate_salary_for_factory_worker_with_partial_base_salary_and_overtime_salary_and_seniority_salary_and_without_attendance_salary() {
+        // 测试数据
+        SalaryRequest salaryRequest = new SalaryRequest();
+        salaryRequest.setBaseSalaryRate(3520);
+        salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
+        salaryRequest.setOverTimeHours(6);
+        salaryRequest.setSeniority(7);
+        salaryRequest.setSalesRevenue(0);
+        salaryRequest.setWorkDays(19);
+
+        // 模拟行为
+        when(workService.get(804L)).thenReturn(salaryRequest);
+
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(804L);
+
+        // 断言结果
+        assertThat(salaryResponse.getBaseSalary()).isEqualTo(3040); // 3520 / 22 * 19
+        assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(180); // (3520 / 22 / 8 * 1.5) * 6
+        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(28); // (7 - 1) * 3 + 10
         assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(0);
         assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(0);
     }
 
     /**
-     * 测试意图：车间薪资=基本考勤工资+加班工资+工龄工资+全勤奖。
+     * 测试意图：质检技术人员薪资=基本考勤工资+工龄工资+全勤奖。
      */
     @Test
-    public void should_calculate_salary_for_factory_worker_with_base_salary_and_overtime_salary_and_seniority_salary_and_attendance_salary() {
-        // 准备测试数据
-        Long userId = 803L;
-        SalaryRequest salaryRequest = new SalaryRequest();
-        salaryRequest.setBaseSalaryRate(3520);
-        salaryRequest.setWorkDays(22);
-        salaryRequest.setOverTimeHours(13);
-        salaryRequest.setEmployeeTYpe(EmployeeType.FACTORY_WORKER);
-        salaryRequest.setSeniority(1);
-        salaryRequest.setSalesRevenue(0);
-
-        when(workService.get(userId)).thenReturn(salaryRequest);
-
-        // 调用被测试方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
-
-        // 断言结果
-        assertThat(salaryResponse.getBaseSalary()).isEqualTo(3520);
-        assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(390);
-        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(10);
-        assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(100);
-        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(0);
-    }
-
-    @Test
     void should_calculate_salary_for_quality_control_with_base_salary_and_seniority_salary_and_attendance_salary() {
-        // 准备测试数据
-        Long userId = 805L;
+        // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(5280);
-        salaryRequest.setWorkDays(22);
+        salaryRequest.setEmployeeType(EmployeeType.QUALITY_CONTROL);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeType.QUALITY_CONTROL);
         salaryRequest.setSeniority(5);
         salaryRequest.setSalesRevenue(0);
+        salaryRequest.setWorkDays(22);
 
-        // 模拟workService.get方法返回测试数据
-        when(workService.get(userId)).thenReturn(salaryRequest);
+        // 模拟行为
+        when(workService.get(805L)).thenReturn(salaryRequest);
 
-        // 调用被测试方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(805L);
 
         // 断言结果
-        assertThat(salaryResponse.getBaseSalary()).isEqualTo(5280);
+        assertThat(salaryResponse.getBaseSalary()).isEqualTo(5280); // 5280 / 22 * 22
         assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(0);
-        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(22);
+        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(22); // (5 - 1) * 3 + 10
         assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(100);
         assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(0);
     }
@@ -143,28 +142,27 @@ public class SalaryServiceTest {
      */
     @Test
     void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and_attendance_salary_and_sales_commission_salary() {
-        // 准备测试数据
-        Long userId = 806L;
+        // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(6160);
-        salaryRequest.setWorkDays(22);
+        salaryRequest.setEmployeeType(EmployeeType.SALES);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeType.SALES);
         salaryRequest.setSeniority(1);
         salaryRequest.setSalesRevenue(7);
+        salaryRequest.setWorkDays(22);
 
-        // 模拟workService.get方法返回测试数据
-        when(workService.get(userId)).thenReturn(salaryRequest);
+        // 模拟行为
+        when(workService.get(806L)).thenReturn(salaryRequest);
 
-        // 调用被测试方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(806L);
 
         // 断言结果
-        assertThat(salaryResponse.getBaseSalary()).isEqualTo(6160);
+        assertThat(salaryResponse.getBaseSalary()).isEqualTo(6160); // 6160 / 22 * 22
         assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(0);
-        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(10);
+        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(10); // (1 - 1) * 3 + 10
         assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(100);
-        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(1000);
+        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(1000); // 假设销售提成为每笔业务固定金额
     }
 
     /**
@@ -172,28 +170,27 @@ public class SalaryServiceTest {
      */
     @Test
     void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and_attendance_salary_and_sales_commission_salary_more() {
-        // 准备测试数据
-        Long userId = 807L;
+        // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(6160);
-        salaryRequest.setWorkDays(22);
+        salaryRequest.setEmployeeType(EmployeeType.SALES);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeType.SALES);
         salaryRequest.setSeniority(7);
         salaryRequest.setSalesRevenue(38);
+        salaryRequest.setWorkDays(22);
 
-        // 模拟workService.get方法返回测试数据
-        when(workService.get(userId)).thenReturn(salaryRequest);
+        // 模拟行为
+        when(workService.get(807L)).thenReturn(salaryRequest);
 
-        // 调用被测试方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(807L);
 
         // 断言结果
-        assertThat(salaryResponse.getBaseSalary()).isEqualTo(6160);
+        assertThat(salaryResponse.getBaseSalary()).isEqualTo(6160); // 6160 / 22 * 22
         assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(0);
-        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(28);
+        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(28); // (7 - 1) * 3 + 10
         assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(100);
-        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(4000);
+        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(4000); // 假设销售提成为每笔业务固定金额
     }
 
     /**
@@ -201,27 +198,26 @@ public class SalaryServiceTest {
      */
     @Test
     void should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniority_salary_and_without_attendance_salary_and_sales_commission_salary() {
-        // 准备测试数据
-        Long userId = 808L;
+        // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(6160);
-        salaryRequest.setWorkDays(21);
+        salaryRequest.setEmployeeType(EmployeeType.SALES);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeType.SALES);
         salaryRequest.setSeniority(12);
         salaryRequest.setSalesRevenue(54);
+        salaryRequest.setWorkDays(21);
 
-        // 模拟workService.get方法返回测试数据
-        when(workService.get(userId)).thenReturn(salaryRequest);
+        // 模拟行为
+        when(workService.get(808L)).thenReturn(salaryRequest);
 
-        // 调用被测试方法
-        SalaryResponse salaryResponse = salaryService.calculate(userId);
+        // 执行测试
+        SalaryResponse salaryResponse = salaryService.calculate(808L);
 
         // 断言结果
-        assertThat(salaryResponse.getBaseSalary()).isEqualTo(5880);
+        assertThat(salaryResponse.getBaseSalary()).isEqualTo(5880); // 6160 / 22 * 21
         assertThat(salaryResponse.getOverTimeSalary()).isEqualTo(0);
-        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(30);
+        assertThat(salaryResponse.getSenioritySalary()).isEqualTo(30); // (12 - 1) * 3
         assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(0);
-        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(5000);
+        assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(5000); // 假设销售提成为每笔业务固定金额
     }
 }
