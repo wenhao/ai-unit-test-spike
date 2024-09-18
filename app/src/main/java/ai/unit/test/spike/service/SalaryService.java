@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
-import static ai.unit.test.spike.domain.EmployeeTYpe.FACTORY_WORKER;
-import static ai.unit.test.spike.domain.EmployeeTYpe.SALES;
+import static ai.unit.test.spike.domain.EmployeeType.FACTORY_WORKER;
+import static ai.unit.test.spike.domain.EmployeeType.SALES;
 
 @Service
 public class SalaryService {

@@ -1,9 +1,9 @@
 package ai.unit.test.spike.request;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 
 public class SalaryRequest {
-    private EmployeeTYpe employeeTYpe;
+    private EmployeeType employeeTYpe;
     private double baseSalaryRate;
     private int overTimeHours;
     private int seniority;
@@ -19,11 +19,11 @@ public class SalaryRequest {
         this.baseSalaryRate = baseSalaryRate;
     }
 
-    public EmployeeTYpe getEmployeeTYpe() {
+    public EmployeeType getEmployeeTYpe() {
         return employeeTYpe;
     }
 
-    public void setEmployeeTYpe(final EmployeeTYpe employeeTYpe) {
+    public void setEmployeeTYpe(final EmployeeType employeeTYpe) {
         this.employeeTYpe = employeeTYpe;
     }
 

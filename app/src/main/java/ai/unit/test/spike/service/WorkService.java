@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.ImmutableMap;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
-import static ai.unit.test.spike.domain.EmployeeTYpe.FACTORY_WORKER;
-import static ai.unit.test.spike.domain.EmployeeTYpe.OFFICE_ASSISTANT;
-import static ai.unit.test.spike.domain.EmployeeTYpe.QUALITY_CONTROL;
-import static ai.unit.test.spike.domain.EmployeeTYpe.SALES;
+import static ai.unit.test.spike.domain.EmployeeType.FACTORY_WORKER;
+import static ai.unit.test.spike.domain.EmployeeType.OFFICE_ASSISTANT;
+import static ai.unit.test.spike.domain.EmployeeType.QUALITY_CONTROL;
+import static ai.unit.test.spike.domain.EmployeeType.SALES;
 
 @Service
 public class WorkService {
@@ -27,7 +27,7 @@ public class WorkService {
                 .get(userId);
     }
 
-    private SalaryRequest getSalaryRequest(EmployeeTYpe employeeTYpe, int baseSalaryRate, int overTimeHours, int seniority,
+    private SalaryRequest getSalaryRequest(EmployeeType employeeTYpe, int baseSalaryRate, int overTimeHours, int seniority,
                                            int workDays, int salesRevenue) {
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setEmployeeTYpe(employeeTYpe);

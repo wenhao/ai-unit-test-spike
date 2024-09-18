@@ -5,7 +5,7 @@
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +36,7 @@ public class SalaryServiceTest {
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(10);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+    salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
 
@@ -52,7 +52,7 @@ public class SalaryServiceTest {
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(10);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
+    salaryRequest.setEmployeeType(EmployeeType.SALES);
     salaryRequest.setSalesRevenue(100000);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
@@ -69,7 +69,7 @@ public class SalaryServiceTest {
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(10);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+    salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
 
@@ -86,7 +86,7 @@ public class SalaryServiceTest {
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(10);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+    salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
     salaryRequest.setSeniority(5);
 
     when(workService.get(1L)).thenReturn(salaryRequest);
@@ -102,7 +102,7 @@ public class SalaryServiceTest {
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [失败][次要]正确使用AssertJ框架：未识别到AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -120,7 +120,7 @@ public class SalaryServiceTest {
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -141,8 +141,8 @@ public class SalaryServiceTest {
   @InjectMocks
   private SalaryService salaryService;
 
-  private static final EmployeeTYpe FACTORY_WORKER = EmployeeTYpe.FACTORY_WORKER;
-  private static final EmployeeTYpe SALES = EmployeeTYpe.SALES;
+  private static final EmployeeType FACTORY_WORKER = EmployeeType.FACTORY_WORKER;
+  private static final EmployeeType SALES = EmployeeType.SALES;
 
   @BeforeEach
   void setUp() {
@@ -156,7 +156,7 @@ public class SalaryServiceTest {
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(10);
-    salaryRequest.setEmployeeTYpe(FACTORY_WORKER);
+    salaryRequest.setEmployeeType(FACTORY_WORKER);
     salaryRequest.setSeniority(2); // Example seniority
 
     when(workService.get(anyLong())).thenReturn(salaryRequest);
@@ -178,7 +178,7 @@ public class SalaryServiceTest {
     SalaryRequest salaryRequest = new SalaryRequest();
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
-    salaryRequest.setEmployeeTYpe(SALES);
+    salaryRequest.setEmployeeType(SALES);
     salaryRequest.setSalesRevenue(10000);
     salaryRequest.setSeniority(5); // Example seniority
 
@@ -201,7 +201,7 @@ public class SalaryServiceTest {
     SalaryRequest salaryRequest = new SalaryRequest();
     salaryRequest.setBaseSalaryRate(2000);
     salaryRequest.setWorkDays(22);
-    salaryRequest.setEmployeeTYpe(FACTORY_WORKER);
+    salaryRequest.setEmployeeType(FACTORY_WORKER);
     salaryRequest.setSeniority(1);
 
     when(workService.get(anyLong())).thenReturn(salaryRequest);
@@ -216,7 +216,7 @@ public class SalaryServiceTest {
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [失败][次要]正确使用AssertJ框架：虽然提示词里面提到了AssertJ框架，但实际代码还是没用到。
 * [成功][严重]正确地使用Mock框架。
@@ -234,7 +234,7 @@ public class SalaryServiceTest {
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -257,8 +257,8 @@ public class SalaryServiceTest {
     @InjectMocks
     private SalaryService salaryService;
 
-    private static final EmployeeTYpe FACTORY_WORKER = EmployeeTYpe.FACTORY_WORKER;
-    private static final EmployeeTYpe SALES = EmployeeTYpe.SALES;
+    private static final EmployeeType FACTORY_WORKER = EmployeeType.FACTORY_WORKER;
+    private static final EmployeeType SALES = EmployeeType.SALES;
 
     @BeforeEach
     void setUp() {
@@ -272,7 +272,7 @@ public class SalaryServiceTest {
         salaryRequest.setBaseSalaryRate(2400.0);
         salaryRequest.setWorkDays(22);
         salaryRequest.setOverTimeHours(8);
-        salaryRequest.setEmployeeTYpe(FACTORY_WORKER);
+        salaryRequest.setEmployeeType(FACTORY_WORKER);
         salaryRequest.setSeniority(5);
 
         when(workService.get(anyLong())).thenReturn(salaryRequest);
@@ -294,7 +294,7 @@ public class SalaryServiceTest {
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(2000.0);
         salaryRequest.setWorkDays(25);
-        salaryRequest.setEmployeeTYpe(SALES);
+        salaryRequest.setEmployeeType(SALES);
         salaryRequest.setSalesRevenue(12345.0);
         salaryRequest.setSeniority(3);
 
@@ -317,12 +317,12 @@ public class SalaryServiceTest {
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(2000.0);
         salaryRequest.setWorkDays(22);
-        salaryRequest.setEmployeeTYpe
+        salaryRequest.setEmployeeType
 ```
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [成功][次要]正确使用AssertJ框架：修改提示词后能正确的使用AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -348,7 +348,7 @@ public class SalaryServiceTest {
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -384,7 +384,7 @@ public class SalaryServiceTest {
         salaryRequest.setBaseSalaryRate(4400);
         salaryRequest.setWorkDays(22);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeTYpe.OFFICE_ASSISTANT);
+        salaryRequest.setEmployeeType(EmployeeType.OFFICE_ASSISTANT);
         salaryRequest.setSeniority(3);
         salaryRequest.setSalesRevenue(0.0);
 
@@ -405,7 +405,7 @@ public class SalaryServiceTest {
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [成功][次要]正确使用AssertJ框架：修改提示词后能正确的使用AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -420,7 +420,7 @@ public class SalaryServiceTest {
 
 第五次Spike，尝试修复生成的单测不可执行成功的问题，思路是提前告之AI断言结果，提示词如下：
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请使用一下测试数据生成一个测试方法，userId为801，salaryRequest中的数据分别是，baseSalaryRate为4400，workDays为22，overTimeHours为0，employeeTYpe为OFFICE_ASSISTANT，seniority为3
@@ -433,7 +433,7 @@ public class SalaryServiceTest {
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -467,7 +467,7 @@ public class SalaryServiceTest {
         salaryRequest.setBaseSalaryRate(4400);
         salaryRequest.setWorkDays(22);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeTYpe.OFFICE_ASSISTANT);
+        salaryRequest.setEmployeeType(EmployeeType.OFFICE_ASSISTANT);
         salaryRequest.setSeniority(3);
         salaryRequest.setSalesRevenue(0.0);
 
@@ -488,7 +488,7 @@ public class SalaryServiceTest {
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [成功][次要]正确使用AssertJ框架：修改提示词后能正确的使用AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -503,7 +503,7 @@ public class SalaryServiceTest {
 
 第六次Spike，尝试提高生成单测的方法的可读性，一种是测试的方法名能揭示测试意图，另外一种方式是在方法名上加注释说明测试意图，我们两种都要，因为复杂度类似，提示词如下：
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_office_assistant_with_base_salary_and_seniority_salary_and_attendance_salary
@@ -519,7 +519,7 @@ public class SalaryServiceTest {
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -555,7 +555,7 @@ public class SalaryServiceTest {
         salaryRequest.setBaseSalaryRate(4400);
         salaryRequest.setWorkDays(22);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeTYpe.OFFICE_ASSISTANT);
+        salaryRequest.setEmployeeType(EmployeeType.OFFICE_ASSISTANT);
         salaryRequest.setSeniority(3);
         salaryRequest.setSalesRevenue(0.0);
 
@@ -576,7 +576,7 @@ public class SalaryServiceTest {
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [成功][次要]正确使用AssertJ框架：修改提示词后能正确的使用AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -598,9 +598,9 @@ public class SalaryServiceTest {
 
 以上问题的解决对AI生成单测有很重要的指导意义，但后续还需要结合场景比如增量单测如何处理，修改了业务代码的单测如何跟着更改等等。
 
-第7次Spike，多次重复第六次Spike的过程，把该方法的测试已覆盖率提高到100%。提示词如下：
+第七次Spike，多次重复第六次Spike的过程，把该方法的测试已覆盖率提高到100%。提示词如下：
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_office_assistant_with_partial_base_salary_and_full_seniority_salary_and_without_attendance_salary
@@ -614,7 +614,7 @@ public class SalaryServiceTest {
 ```java
 package ai.unit.test.spike.service;
 
-import ai.unit.test.spike.domain.EmployeeTYpe;
+import ai.unit.test.spike.domain.EmployeeType;
 import ai.unit.test.spike.request.SalaryRequest;
 import ai.unit.test.spike.response.SalaryResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -653,7 +653,7 @@ public class SalaryServiceTest {
         salaryRequest.setBaseSalaryRate(4400.0);
         salaryRequest.setWorkDays(20);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeTYpe.OFFICE_ASSISTANT);
+        salaryRequest.setEmployeeType(EmployeeType.OFFICE_ASSISTANT);
         salaryRequest.setSeniority(11);
         salaryRequest.setSalesRevenue(0.0);
 
@@ -676,7 +676,7 @@ public class SalaryServiceTest {
 
 生成的代码重复的包含了import和类头部分，如果仅生成测试方法就更好了，下次尝试修复这个问题。
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [成功][次要]正确使用AssertJ框架：修改提示词后能正确的使用AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -691,7 +691,7 @@ public class SalaryServiceTest {
 
 第八次Spike，尝试去除import和类头部分的代码，仅生成测试方法。提示词如下：
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_office_assistant_with_partial_base_salary_and_full_seniority_salary_and_without_attendance_salary
@@ -716,7 +716,7 @@ void should_calculate_salary_for_office_assistant_with_partial_base_salary_and_f
     salaryRequest.setBaseSalaryRate(4400.0);
     salaryRequest.setWorkDays(20);
     salaryRequest.setOverTimeHours(0);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.OFFICE_ASSISTANT);
+    salaryRequest.setEmployeeType(EmployeeType.OFFICE_ASSISTANT);
     salaryRequest.setSeniority(11);
     salaryRequest.setSalesRevenue(0.0);
 
@@ -741,7 +741,7 @@ void should_calculate_salary_for_office_assistant_with_partial_base_salary_and_f
 
 #### 评价：
 
-```txt
+```markdown
 * [成功][严重]正确使用JUnit框架版本: 自动识别了JUnit5框架的版本。
 * [成功][次要]正确使用AssertJ框架：修改提示词后能正确的使用AssertJ框架。
 * [成功][严重]正确地使用Mock框架。
@@ -757,10 +757,10 @@ void should_calculate_salary_for_office_assistant_with_partial_base_salary_and_f
 
 第九次Spike，补全所有测试案例，达成测试覆盖率100%，提示词如下：
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
-2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_facory_worker_with_base_salary_and_overtime_salary_and_seniority_salary_and_attendance_salary
+2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_factory_worker_with_base_salary_and_overtime_salary_and_seniority_salary_and_attendance_salary
 ，并且给该测试方法加上注释：测试意图：车间薪资=基本考勤工资+加班工资+工龄工资+全勤奖。
 3、该测试方法使用以下测试数据，userId为803，Mock对象salaryRequest中的数据分别是，baseSalaryRate为3520，workDays为22，overTimeHours为13，employeeTYpe为FACTORY_WORKER，seniority为1，salesRevenue为0。 
 4、断言结果：baseSalary为3520，overTimeSalary为390，senioritySalary为10，attendanceSalary为100，salesCommissionSalary为0。
@@ -781,7 +781,7 @@ void should_calculate_salary_for_factory_worker_with_base_salary_and_overtime_sa
         salaryRequest.setBaseSalaryRate(3520.0);
         salaryRequest.setWorkDays(22);
         salaryRequest.setOverTimeHours(13);
-        salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+        salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
         salaryRequest.setSeniority(1);
         salaryRequest.setSalesRevenue(0.0);
 
@@ -805,10 +805,10 @@ void should_calculate_salary_for_factory_worker_with_base_salary_and_overtime_sa
         }
 ```
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
-2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_facory_worker_with_partial_base_salary_and_overtime_salary_and_seniority_salary_and_without_attendance_salary
+2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_factory_worker_with_partial_base_salary_and_overtime_salary_and_seniority_salary_and_without_attendance_salary
 ，并且给该测试方法加上注释：测试意图：车间薪资=部分考勤工资+加班工资+工龄工资。
 3、该测试方法使用以下测试数据，userId为804，Mock对象salaryRequest中的数据分别是，baseSalaryRate为3520，workDays为19，overTimeHours为6，employeeTYpe为FACTORY_WORKER，seniority为7，salesRevenue为0。 
 4、断言结果：baseSalary为3040，overTimeSalary为180，senioritySalary为28，attendanceSalary为0，salesCommissionSalary为0。
@@ -831,7 +831,7 @@ void should_calculate_salary_for_factory_worker_with_partial_base_salary_and_ove
     salaryRequest.setBaseSalaryRate(3520);
     salaryRequest.setWorkDays(19);
     salaryRequest.setOverTimeHours(6);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.FACTORY_WORKER);
+    salaryRequest.setEmployeeType(EmployeeType.FACTORY_WORKER);
     salaryRequest.setSeniority(7);
     salaryRequest.setSalesRevenue(0.0);
 
@@ -854,7 +854,7 @@ void should_calculate_salary_for_factory_worker_with_partial_base_salary_and_ove
 }
 ```
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_quality_control_with_base_salary_and_seniority_salary_and_attendance_salary
@@ -877,11 +877,11 @@ void should_calculate_salary_for_quality_control_with_base_salary_and_seniority_
     salaryRequest.setBaseSalaryRate(5280);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(0);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.QUALITY_CONTROL);
+    salaryRequest.setEmployeeType(EmployeeType.QUALITY_CONTROL);
     salaryRequest.setSeniority(5);
     salaryRequest.setSalesRevenue(0.0);
 
-    // Assuming the SalaryServiceTest class already has a mock for workService
+    // Assuming the ai.unit.test.spike.service.SalaryServiceTest class already has a mock for workService
     when(workService.get(userId)).thenReturn(salaryRequest);
 
     // Act
@@ -896,7 +896,7 @@ void should_calculate_salary_for_quality_control_with_base_salary_and_seniority_
 }
 ```
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and_attendance_salary_and_sales_commission_salary
@@ -921,7 +921,7 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
     salaryRequest.setBaseSalaryRate(6160);
     salaryRequest.setWorkDays(22);
     salaryRequest.setOverTimeHours(0);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
+    salaryRequest.setEmployeeType(EmployeeType.SALES);
     salaryRequest.setSeniority(1);
     salaryRequest.setSalesRevenue(7.0);
 
@@ -941,7 +941,7 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
 }
 ```
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and_attendance_salary_and_sales_commission_salary_more
@@ -964,11 +964,11 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
         salaryRequest.setBaseSalaryRate(6160);
         salaryRequest.setWorkDays(22);
         salaryRequest.setOverTimeHours(0);
-        salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
+        salaryRequest.setEmployeeType(EmployeeType.SALES);
         salaryRequest.setSeniority(7);
         salaryRequest.setSalesRevenue(38); // 注意：这里可能需要根据实际情况调整提成计算逻辑，因为通常提成不会直接基于salesRevenue的值
 
-        // Assuming the SalaryServiceTest class already has a mock for workService
+        // Assuming the ai.unit.test.spike.service.SalaryServiceTest class already has a mock for workService
         when(workService.get(userId)).thenReturn(salaryRequest);
 
         // Act
@@ -986,7 +986,7 @@ void should_calculate_salary_for_sales_with_base_salary_and_seniority_salary_and
         }
 ```
 
-```txt
+```markdown
 请按以下要求生成单元测试：
 1、请为这段代码生成单元测试；使用JUnit5、AssertJ和Mockito框架，AssertJ框架请使用如assertThat方法。
 2、请生成一个测试方法，该方法的名称为should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniority_salary_and_without_attendance_salary_and_sales_commission_salary
@@ -1009,7 +1009,7 @@ void should_calculate_salary_for_sales_with_partial_base_salary_and_full_seniori
     salaryRequest.setBaseSalaryRate(6160);
     salaryRequest.setWorkDays(21);
     salaryRequest.setOverTimeHours(0);
-    salaryRequest.setEmployeeTYpe(EmployeeTYpe.SALES);
+    salaryRequest.setEmployeeType(EmployeeType.SALES);
     salaryRequest.setSeniority(12);
     salaryRequest.setSalesRevenue(54.0);
 
