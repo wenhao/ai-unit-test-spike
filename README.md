@@ -99,3 +99,7 @@ public class SalaryService {
 * [百度Comate Spike](./docs/baidu_comate.md)
 * [腾讯AI助手 Spike](./docs/tencent-ai.md)
 * [通义灵码 Spike](./docs/tongyi-lingma.md)
+
+### AI辅助单元测试引起的变革
+
+* [AI辅助单元测试引起的变革](./docs/ai-unit-test-evolution.md]
