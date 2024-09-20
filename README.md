@@ -102,4 +102,4 @@ public class SalaryService {
 
 ### AI辅助单元测试引起的变革
 
-* [AI辅助单元测试引起的变革](./docs/ai-unit-test-evolution.md]
+* [AI辅助单元测试引起的变革](./docs/ai-unit-test-evolution.md)
