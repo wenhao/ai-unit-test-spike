@@ -96,7 +96,7 @@ public class SalaryService {
 
 ### Spike
 
-* [百度Comate Spike](./docs/baidu_comate.md)
+* [百度Comate Spike](./docs/baidu-comate.md)
 * [腾讯AI助手 Spike](./docs/tencent-ai.md)
 * [通义灵码 Spike](./docs/tongyi-lingma.md)
 
