@@ -41,7 +41,7 @@ ai-unit-test-spike
   * [次要]正确使用AssertJ框架
   * [严重]正确地使用Mock框架
   * [次要]生成的单测可自动放在对应的文件目录
-  * [严重]生成的单测可编译 
+  * [严重]生成的单测可编译
   * [严重]生成的单测可执行成功
   * [严重]正确地使用断言
   * [重要]生成的单测测试方法名可读性高
@@ -67,30 +67,30 @@ import static ai.unit.test.spike.domain.EmployeeType.SALES;
 
 @Service
 public class SalaryService {
-    private final WorkService workService;
+  private final WorkService workService;
 
-    @Autowired
-    public SalaryService(final WorkService workService) {
-        this.workService = workService;
-    }
+  @Autowired
+  public SalaryService(final WorkService workService) {
+    this.workService = workService;
+  }
 
-    public SalaryResponse calculate(Long userId) {
-        SalaryRequest salaryRequest = workService.get(userId);
-        SalaryResponse salaryResponse = new SalaryResponse();
-        salaryResponse.setBaseSalary(Double.valueOf(salaryRequest.getBaseSalaryRate() / 22 * salaryRequest.getWorkDays()).intValue());
-        if (salaryRequest.getEmployeeTYpe().equals(FACTORY_WORKER)) {
-            double preHourSalary = salaryRequest.getBaseSalaryRate() / 22 / 8 * 1.5;
-            salaryResponse.setOverTimeSalary(Double.valueOf((preHourSalary * salaryRequest.getOverTimeHours())).intValue());
-        }
-        salaryResponse.setSenioritySalary(Math.min((salaryRequest.getSeniority() - 1) * 3 + 10, 30));
-        if (salaryRequest.getWorkDays() == 22) {
-            salaryResponse.setAttendanceSalary(100);
-        }
-        if (salaryRequest.getEmployeeTYpe().equals(SALES)) {
-            salaryResponse.setSalesCommissionSalary(Double.valueOf((Math.round(salaryRequest.getSalesRevenue() / 10) * 1000)).intValue());
-        }
-        return salaryResponse;
+  public SalaryResponse calculate(Long userId) {
+    SalaryRequest salaryRequest = workService.get(userId);
+    SalaryResponse salaryResponse = new SalaryResponse();
+    salaryResponse.setBaseSalary(Double.valueOf(salaryRequest.getBaseSalaryRate() / 22 * salaryRequest.getWorkDays()).intValue());
+    if (salaryRequest.getEmployeeTYpe().equals(FACTORY_WORKER)) {
+      double preHourSalary = salaryRequest.getBaseSalaryRate() / 22 / 8 * 1.5;
+      salaryResponse.setOverTimeSalary(Double.valueOf((preHourSalary * salaryRequest.getOverTimeHours())).intValue());
     }
+    salaryResponse.setSenioritySalary(Math.min((salaryRequest.getSeniority() - 1) * 3 + 10, 30));
+    if (salaryRequest.getWorkDays() == 22) {
+      salaryResponse.setAttendanceSalary(100);
+    }
+    if (salaryRequest.getEmployeeTYpe().equals(SALES)) {
+      salaryResponse.setSalesCommissionSalary(Double.valueOf((Math.round(salaryRequest.getSalesRevenue() / 10) * 1000)).intValue());
+    }
+    return salaryResponse;
+  }
 }
 ```
 
@@ -99,6 +99,7 @@ public class SalaryService {
 * [百度Comate Spike](./docs/baidu-comate.md)
 * [腾讯AI助手 Spike](./docs/tencent-ai.md)
 * [通义灵码 Spike](./docs/tongyi-lingma.md)
+* [ClaudeAI_Spike](./docs/claude-ai.md)
 
 ### AI辅助单元测试引起的变革
 
