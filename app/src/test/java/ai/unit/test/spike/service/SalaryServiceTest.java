@@ -1,11 +1,15 @@
 package ai.unit.test.spike.service;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static ai.unit.test.spike.domain.EmployeeType.SALES;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import ai.unit.test.spike.domain.EmployeeType;
@@ -145,7 +149,7 @@ class SalaryServiceTest {
         // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(6160);
-        salaryRequest.setEmployeeType(EmployeeType.SALES);
+        salaryRequest.setEmployeeType(SALES);
         salaryRequest.setOverTimeHours(0);
         salaryRequest.setSeniority(1);
         salaryRequest.setSalesRevenue(7);
@@ -173,7 +177,7 @@ class SalaryServiceTest {
         // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(6160);
-        salaryRequest.setEmployeeType(EmployeeType.SALES);
+        salaryRequest.setEmployeeType(SALES);
         salaryRequest.setOverTimeHours(0);
         salaryRequest.setSeniority(7);
         salaryRequest.setSalesRevenue(38);
@@ -201,7 +205,7 @@ class SalaryServiceTest {
         // 测试数据
         SalaryRequest salaryRequest = new SalaryRequest();
         salaryRequest.setBaseSalaryRate(6160);
-        salaryRequest.setEmployeeType(EmployeeType.SALES);
+        salaryRequest.setEmployeeType(SALES);
         salaryRequest.setOverTimeHours(0);
         salaryRequest.setSeniority(12);
         salaryRequest.setSalesRevenue(54);
@@ -219,5 +223,33 @@ class SalaryServiceTest {
         assertThat(salaryResponse.getSenioritySalary()).isEqualTo(30); // (12 - 1) * 3
         assertThat(salaryResponse.getAttendanceSalary()).isEqualTo(0);
         assertThat(salaryResponse.getSalesCommissionSalary()).isEqualTo(5000); // 假设销售提成为每笔业务固定金额
+    }
+
+    @Test
+    @DisplayName("测试销售人员薪资计算")
+    void givenSalesEmployeeData_whenCalculateSalary_thenReturnExpectedSalary() {
+        // Arrange
+        Long userId = 808L;
+        SalaryRequest mockRequest = new SalaryRequest();
+        mockRequest.setBaseSalaryRate(6160);
+        mockRequest.setWorkDays(21);
+        mockRequest.setOverTimeHours(0);
+        mockRequest.setEmployeeType(SALES);
+        mockRequest.setSeniority(12);
+        mockRequest.setSalesRevenue(54);
+
+        when(workService.get(userId)).thenReturn(mockRequest);
+
+        SalaryService salaryService = new SalaryService(workService);
+
+        // Act
+        SalaryResponse result = salaryService.calculate(userId);
+
+        // Assert
+        assertEquals(5880, result.getBaseSalary());
+        assertEquals(0, result.getOverTimeSalary());
+        assertEquals(30, result.getSenioritySalary());
+        assertEquals(0, result.getAttendanceSalary());
+        assertEquals(5000, result.getSalesCommissionSalary());
     }
 }
