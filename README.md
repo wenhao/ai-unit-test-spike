@@ -40,7 +40,6 @@ ai-unit-test-spike
   * [严重]正确使用JUnit框架版本
   * [次要]正确使用AssertJ框架
   * [严重]正确地使用Mock框架
-  * [次要]生成的单测可自动放在对应的文件目录
   * [严重]生成的单测可编译
   * [严重]生成的单测可执行成功
   * [严重]正确地使用断言
@@ -49,6 +48,8 @@ ai-unit-test-spike
   * [重要]测试覆盖率高
   * [次要]重复生成结果差异小
   * [严重]能增量生成单元测试
+  * [次要]测试方法内容符合BDD格式。
+  * [次要]生成的单测可自动放在对应的文件目录
 
 ### 主要的业务代码
 
@@ -96,11 +97,15 @@ public class SalaryService {
 
 ### Spike
 
-* [百度Comate Spike](./docs/baidu-comate.md)
-* [腾讯AI助手 Spike](./docs/tencent-ai.md)
-* [通义灵码 Spike](./docs/tongyi-lingma.md)
-* [ClaudeAI_Spike](./docs/claude-ai.md)
+* [百度Comate Spike](docs/spike/baidu-comate.md)
+* [腾讯AI助手 Spike](docs/spike/tencent-ai.md)
+* [通义灵码 Spike](docs/spike/tongyi-lingma.md)
+* [ClaudeAI_Spike](docs/spike/claude-ai.md)
 
 ### AI辅助单元测试引起的变革
 
 * [AI辅助单元测试引起的变革](./docs/ai-unit-test-evolution.md)
+
+### AI辅助单元测试解决方案
+
+* [AI辅助单元测试解决方案](docs/solution/README.md)
