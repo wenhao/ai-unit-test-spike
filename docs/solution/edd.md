@@ -12,7 +12,7 @@
           1.2.1 导入JUnit5版本的类。
           1.2.2 正确使用测试方法注解。
      2. 正确使用Mockito框架，Mock方式统一。
-        2.1 与JUnit4结合使用时使用@RunWith注解或者MockitoAnnotations.initMocks(this)。
+        2.1 与JUnit4结合使用时使用@RunWith注解或者MockitoAnnotations.openMocks(this)。
         2.2 与JUnit5结合使用时使用@ExtendWith(MockitoExtension.class)注解或者MockitoAnnotations.openMocks(this)。
         2.3 正确使用@InjectMocks注解。
         2.4 正确使用@Mock注解，@when。
