@@ -4,30 +4,34 @@
 
 1. 生成单个测试方法，验收条件：
      ```markdown
-     1. 正确使用JUnit框架。
+     1. 正确使用JUnit框架，避免多框架混用。
         1.1 正确使用JUnit4版本。
           1.1.1 导入JUnit4版本的类。
           1.1.2 正确使用测试方法注解。
         1.2 正确使用JUnit5版本。
           1.2.1 导入JUnit5版本的类。
           1.2.2 正确使用测试方法注解。
-     2. 正确使用Mockito框架。
+     2. 正确使用Mockito框架，Mock方式统一。
         2.1 与JUnit4结合使用时使用@RunWith注解或者MockitoAnnotations.initMocks(this)。
         2.2 与JUnit5结合使用时使用@ExtendWith(MockitoExtension.class)注解或者MockitoAnnotations.openMocks(this)。
         2.3 正确使用@InjectMocks注解。
-        2.4 正确使用@Mock注解，包括@given、@when、@then。
-        2.5 正确使用assertThrows方法。
-        2.6 正确使用doThrow方法。
-        2.7 正确使用doNothing()方法。
-        2.8 正确使用Mockito.mockStatic()方法。
+        2.4 正确使用@Mock注解，@when。
+        2.5 正确使用@Mock注解，@given。
+        2.6 正确使用@Mock注解，@then。
+        2.7 正确使用assertThrows方法。
+        2.8 正确使用doThrow方法。
+        2.9 正确使用doNothing()方法。
+        2.10 正确使用Mockito.mockStatic()方法。
      3. 正确使用AssertJ框架。
         3.1 正确使用assertThat方法。
         3.2 正确使用基本断言，isEqualTo、isNull等。
         3.3 支持对集合、数组、映射、异常等进行断言，contains、isNotEmpty、hasMessageContaining等。
      4. 生成的单测可编译。
-        4.1 正确地引入依赖的类。
-        4.2 没有使用未声明的变量。
-        4.3 没有语法错误。
+        4.1 正确地引入依赖的类Import。
+        4.2 正确使用构造方法创建对象。
+        4.3 正确的解析枚举类。
+        4.4 没有使用未声明的变量。
+        4.5 没有语法错误。
      5. 生成的单测可执行成功。
         5.1 单测运行成功。
         5.2 单测执行速度在1秒内。
@@ -57,7 +61,11 @@
 ### 测试案例
 
 #### 生成单个测试方法案例集
-
+   
+```markdown
+1. 生成单方法单测，满足：
+   * case1：满足1.1、2.1、2.3、2.4、3.1、3.2、4、5、6、7、8。
+```
 
 #### 生成单个类的单元测试案例集
 
